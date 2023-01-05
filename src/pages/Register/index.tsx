@@ -1,1 +1,3 @@
-import * form './register';
+import Register from './Register'
+
+export default Register

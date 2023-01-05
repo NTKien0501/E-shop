@@ -1,9 +1,5 @@
 import React from 'react'
 
-function register() {
-  return (
-    <div>register</div>
-  )
+export default function Register() {
+  return <div>R</div>
 }
-
-export default register
