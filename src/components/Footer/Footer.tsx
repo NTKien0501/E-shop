@@ -14,7 +14,7 @@ export default function Footer() {
             1688.com
           </div>
           <div className='mt-2'>Alibaba Cloud | Autonavi | UCWeb | Umeng | Xiami | DingTalk | Alipay | Lazada</div>
-          <div className='mt-2'>Product Listing Policy - Intellectual Property Protection - Privacy Policy</div>
+          <div className='mt-2'>asdasdProduct Listing Policy - Intellectual Property Protection - Privacy Policy</div>
         </div>
       </div>
     </footer>
