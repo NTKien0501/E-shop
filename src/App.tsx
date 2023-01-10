@@ -1,14 +1,6 @@
-import React from 'react'
-import './App.css'
-import Register from './pages/Register/Register'
-
+import useRouteElements from './useRouteElements'
 function App() {
-  return (
-    <React.Fragment>
-      <Register></Register>
-    </React.Fragment>
- 
-  )
+  const routeElements = useRouteElements()
+  return <div>{routeElements}</div>
 }
-
 export default App
