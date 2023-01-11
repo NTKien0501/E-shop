@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useForm, Resolver } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { IUser } from 'src/Models'
+import { getRules } from 'src/utils/rules'
 
 function Register() {
   const [errorForm, setErrorForm] = useState('')
@@ -10,67 +11,62 @@ function Register() {
     formState: { errors },
     getValues
   } = useForm<IUser>()
+
+  const rules = getRules(getValues)
   const onSubmit = handleSubmit((data) => {
     const password = getValues('password')
     const rePassword = getValues('confirmPassword')
-    if (password !== rePassword) {
-      setErrorForm('The two passwords do not match')
-    }
+
     console.log(data)
   })
   return (
-    <div className='register mx-auto w-80 md:w-1/2'>
+    <div className='mx-auto w-80 pl-1 pr-1 md:w-1/2'>
       <form onSubmit={onSubmit} className='mx-auto'>
         <div className='flex flex-col'>
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='name' className='mr-6 basis-60 text-right'>
               Name
             </label>
             <input
-              className='h-8 border border-inherit px-3 lg:w-1/2 invalid:outline-red-700 focus:outline-orange-background'
+              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
               {...register('name')}
               id='name'
             />
           </div>
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='email' className='mr-6 basis-60 text-right'>
               Email Address
             </label>
             <div className='flex flex-col lg:w-1/2'>
               <input
-                {...register('email', { required: true, pattern: /[\w-+.]{1,}@[\w-+]{1,}[.][a-zA-Z]{1,}/g })}
+                {...register('email', rules.email)}
                 id='email'
                 className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
               />
-              <div className='break-words text-red-700'>
-                {errors?.email && errors.email.type === 'required' && <span>Enter an email address.</span>}
-                {errors?.email && errors.email.type === 'pattern' && <span>Invalid email format.</span>}
+              <div className=' mt-1 break-words text-red-700'>
+                <span>{errors.email?.message}</span>
               </div>
             </div>
           </div>
 
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='password' className='mr-6 basis-60 text-right'>
               Login password
             </label>
             <div className='flex flex-col lg:w-1/2'>
               <input
                 className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
-                {...register('password', {
-                  required: true,
-                  pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}/g
-                })}
+                {...register('password', rules.password)}
                 id='password'
                 type='password'
               />
-              <div className='break-words text-red-700'>
-                {errors?.password && errors.password.type === 'required' && <span>Set the login password</span>}
-                {errors?.password && errors.password.type === 'pattern' && <span>Invalid password format.</span>}
+              <div className=' mt-1 break-words text-red-700'>
+                <span>{errors.password?.message}</span>
               </div>
             </div>
           </div>
 
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='confirm-password' className='mr-6 basis-60 text-right'>
               Confirm password
             </label>
@@ -78,65 +74,58 @@ function Register() {
               <input
                 className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
                 {...register('confirmPassword', {
-                  required: true,
-                  pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}/g
+                  ...rules.confirmPassword
                 })}
                 id='confirm-password'
                 type='password'
               />
-              <div className='break-words text-red-700'>
-                {errors?.confirmPassword && errors.confirmPassword.type === 'required' && (
-                  <span>Enter the login password again.</span>
-                )}
-                {errors?.confirmPassword && errors.confirmPassword.type === 'pattern' && (
-                  <span>Invalid confirm format.</span>
-                )}
-                {!!errorForm && <span>{errorForm}</span>}
+              <div className='mt-1 break-words text-red-700'>
+                <span>{errors.confirmPassword?.message}</span>
               </div>
             </div>
           </div>
 
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='phone' className='mr-6 basis-60 text-right'>
               Phone number
             </label>
             <input
-              className='h-8 border border-inherit px-3 lg:w-1/2 invalid:outline-red-700 focus:outline-orange-background'
+              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
               {...register('phone')}
               id='phone'
             />
           </div>
 
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='street' className='mr-6 basis-60 text-right'>
               Address
             </label>
             <input
-              className='h-8 border border-inherit px-3 lg:w-1/2 invalid:outline-red-700 focus:outline-orange-background'
+              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
               defaultValue=''
               {...register('street')}
               id='street'
             />
           </div>
 
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='zip' className='mr-6 basis-60 text-right'>
               Zip code
             </label>
             <input
-              className='h-8 border border-inherit px-3 lg:w-1/2 invalid:outline-red-700 focus:outline-orange-background'
+              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
               defaultValue=''
               {...register('zip')}
               id='zip'
             />
           </div>
 
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <label htmlFor='city' className='mr-6 basis-60 text-right'>
               City
             </label>
             <input
-              className='h-8 border border-inherit px-3 lg:w-1/2 invalid:outline-red-700 focus:outline-orange-background'
+              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
               defaultValue=''
               {...register('city')}
               id='city'
