@@ -6,7 +6,7 @@ interface Props {
 }
 export default function RegisterLayout({ children }: Props) {
   return (
-    <div>
+    <div className='flex flex-col'>
       <RegisterHeader />
       {children}
       <Footer />
