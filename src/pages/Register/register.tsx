@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IUser } from 'src/Models'
 import { getRules } from 'src/utils/rules'
+import Input from 'src/components/Input'
 
 function Register() {
-  const [errorForm, setErrorForm] = useState('')
   const {
     register,
     handleSubmit,
@@ -14,9 +14,6 @@ function Register() {
 
   const rules = getRules(getValues)
   const onSubmit = handleSubmit((data) => {
-    const password = getValues('password')
-    const rePassword = getValues('confirmPassword')
-
     console.log(data)
   })
   return (
@@ -27,109 +24,82 @@ function Register() {
             <label htmlFor='name' className='mr-6 basis-60 text-right'>
               Name
             </label>
-            <input
-              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
-              {...register('name')}
-              id='name'
-            />
+            <Input type='text' name='name' register={register} className='flex flex-col lg:w-1/2' id='name'></Input>
           </div>
           <div className='flex flex-row py-2'>
             <label htmlFor='email' className='mr-6 basis-60 text-right'>
               Email Address
             </label>
-            <div className='flex flex-col lg:w-1/2'>
-              <input
-                {...register('email', rules.email)}
-                id='email'
-                className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
-              />
-              <div className=' mt-1 break-words text-red-700'>
-                <span>{errors.email?.message}</span>
-              </div>
-            </div>
+            <Input
+              type='text'
+              name='email'
+              register={register}
+              className='flex flex-col lg:w-1/2'
+              rules={rules.email}
+              errMessage={errors.email?.message}
+              id='email'
+              placeholder='Please set the email as the login name'
+            ></Input>
           </div>
 
           <div className='flex flex-row py-2'>
             <label htmlFor='password' className='mr-6 basis-60 text-right'>
               Login password
             </label>
-            <div className='flex flex-col lg:w-1/2'>
-              <input
-                className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
-                {...register('password', rules.password)}
-                id='password'
-                type='password'
-              />
-              <div className=' mt-1 break-words text-red-700'>
-                <span>{errors.password?.message}</span>
-              </div>
-            </div>
+            <Input
+              type='password'
+              name='password'
+              register={register}
+              className='flex flex-col lg:w-1/2'
+              rules={rules.password}
+              errMessage={errors.password?.message}
+              id='password'
+              placeholder='Set the login password'
+            ></Input>
           </div>
 
           <div className='flex flex-row py-2'>
             <label htmlFor='confirm-password' className='mr-6 basis-60 text-right'>
               Confirm password
             </label>
-            <div className='flex flex-col lg:w-1/2'>
-              <input
-                className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
-                {...register('confirmPassword', {
-                  ...rules.confirmPassword
-                })}
-                id='confirm-password'
-                type='password'
-              />
-              <div className='mt-1 break-words text-red-700'>
-                <span>{errors.confirmPassword?.message}</span>
-              </div>
-            </div>
+            <Input
+              type='password'
+              name='confirmPassword'
+              register={register}
+              className='flex flex-col lg:w-1/2'
+              rules={rules.confirmPassword}
+              errMessage={errors.confirmPassword?.message}
+              id='confirm-password'
+              placeholder='Enter the login password again'
+            ></Input>
           </div>
 
           <div className='flex flex-row py-2'>
             <label htmlFor='phone' className='mr-6 basis-60 text-right'>
               Phone number
             </label>
-            <input
-              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
-              {...register('phone')}
-              id='phone'
-            />
+            <Input type='text' name='phone' register={register} className='flex flex-col lg:w-1/2' id='phone'></Input>
           </div>
 
           <div className='flex flex-row py-2'>
             <label htmlFor='street' className='mr-6 basis-60 text-right'>
               Address
             </label>
-            <input
-              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
-              defaultValue=''
-              {...register('street')}
-              id='street'
-            />
+            <Input type='text' name='street' register={register} className='flex flex-col lg:w-1/2' id='street'></Input>
           </div>
 
           <div className='flex flex-row py-2'>
             <label htmlFor='zip' className='mr-6 basis-60 text-right'>
               Zip code
             </label>
-            <input
-              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
-              defaultValue=''
-              {...register('zip')}
-              id='zip'
-            />
+            <Input type='text' name='zip' register={register} className='flex flex-col lg:w-1/2' id='zip'></Input>
           </div>
 
           <div className='flex flex-row py-2'>
             <label htmlFor='city' className='mr-6 basis-60 text-right'>
               City
             </label>
-            <input
-              className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background lg:w-1/2'
-              defaultValue=''
-              {...register('city')}
-              id='city'
-            />
+            <Input type='text' name='city' register={register} className='flex flex-col lg:w-1/2' id='city'></Input>
           </div>
           <button
             type='submit'

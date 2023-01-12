@@ -10,14 +10,15 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: UseFormRegister<any>
   rules?: RegisterOptions
+  id: string
 }
-export default function Input({ type, errMessage, placeholder, className, name, register, rules }: Props) {
+export default function Input({ type, errMessage, placeholder, className, name, register, rules, id }: Props) {
   return (
     <div className={className}>
       <input
-        className='h-8 border border-inherit px-3 invalid:outline-red-700 focus:outline-orange-background'
+        className='h-8 border border-inherit px-3 focus:outline-orange-background'
         {...register(name, rules)}
-        id='password'
+        id={id}
         type={type}
         placeholder={placeholder}
       />
